@@ -1,0 +1,94 @@
+.profile {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+
+  &__back-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      color: #FF9800;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333333;
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #444444;
+    margin-bottom: 1rem;
+  }
+
+  &__info {
+    p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      color: #666666;
+
+      strong {
+        color: #333333;
+      }
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__tag {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #ffffff;
+
+    &--type {
+      background-color: #FF9800; // Цвет для типов помощи
+    }
+
+    &--format {
+      background-color: #4CAF50; // Цвет для форматов помощи
+    }
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+  }
+}

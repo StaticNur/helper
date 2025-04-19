@@ -1,0 +1,59 @@
+@if (isLoading) {
+  <app-loading></app-loading>
+} @else {
+  <div class="profile">
+
+    <button class="profile__back-btn" (click)="goBack()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Назад
+    </button>
+
+    <div class="profile__header">
+      <h1 class="profile__title">Личный кабинет</h1>
+    </div>
+
+    <div class="profile__content">
+      <!-- Основная информация -->
+      <div class="profile__section">
+        <h2 class="profile__subtitle">Основная информация</h2>
+        <div class="profile__info">
+          <p><strong>Имя пользователя:</strong> {{ user?.username }}</p>
+          <p><strong>Email:</strong> {{ user?.email }}</p>
+          <p><strong>Имя:</strong> {{ user?.first_name }}</p>
+          <p><strong>Фамилия:</strong> {{ user?.last_name }}</p>
+          <p><strong>Город:</strong> {{ user?.city }}</p>
+        </div>
+      </div>
+
+      <!-- Типы помощи -->
+      <div class="profile__section">
+        <h2 class="profile__subtitle">Типы помощи</h2>
+        <div class="profile__tags">
+        <span
+          *ngFor="let type of user?.help_types"
+          class="profile__tag profile__tag--type"
+        >
+          {{ getHelpTypeLabel(type) }}
+        </span>
+        </div>
+      </div>
+
+      <!-- Форматы помощи -->
+      <div class="profile__section">
+        <h2 class="profile__subtitle">Форматы помощи</h2>
+        <div class="profile__tags">
+        <span
+          *ngFor="let format of user?.help_formats"
+          class="profile__tag profile__tag--format"
+        >
+          {{ getHelpFormatLabel(format) }}
+        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+

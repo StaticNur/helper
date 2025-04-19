@@ -1,0 +1,64 @@
+<header class="header">
+  <div class="header__container container">
+    <div class="flex flex-row justify-between items-center">
+      <!-- Логотип -->
+      <a href="/dashboard" class="header__logo">
+        <img src="assets/helper.jpg" alt="Логотип сервиса" class="header__logo-image">
+        <span class="header__logo-text">Поддержка+</span>
+      </a>
+
+      <!-- Гамбургер-меню для мобильных устройств -->
+      <button class="header__menu-btn" aria-label="Открыть меню" (click)="toggleMobileMenu()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12H21M3 6H21M3 18H21" stroke="#333333" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <!-- Навигация -->
+      <nav class="header__nav" [class.open]="isMobileMenuOpen">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <a href="/main" class="header__nav-link" [class.active]="isActive('/main')">Главная</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/main/requests" class="header__nav-link" [class.active]="isActive('/main/requests')">Заявки</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/main/chats" class="header__nav-link" [class.active]="isActive('/main/chats')">Чаты</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/main/organizations" class="header__nav-link" [class.active]="isActive('/main/organizations')">Организации</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/main/volunteers" class="header__nav-link" [class.active]="isActive('/main/volunteers')">Волонтёры</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Управление профилем и уведомлениями -->
+    <div class="header__actions">
+      <!-- Кнопка создания новой заявки -->
+      <button class="header__action-btn header__action-btn--request" aria-label="Создать заявку">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span class="text-truncate">Создать заявку</span>
+      </button>
+
+      <!-- Уведомления -->
+      <button class="header__notifications-btn" aria-label="Уведомления">
+        <img src="assets/tdesign_notification.svg" alt="notification icon">
+        <span class="header__notifications-count">3</span>
+      </button>
+
+      <!-- Профиль -->
+      <div class="header__profile-dropdown">
+        <button class="header__profile-btn" aria-label="Открыть меню профиля" (click)="openProfile()">
+          <img src="assets/profile-circle-black.svg" alt="icon">
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+

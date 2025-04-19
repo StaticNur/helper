@@ -1,0 +1,155 @@
+@if (isLoading) {
+  <app-loading></app-loading>
+}
+<div class="flex justify-center items-center w-full text-white p-5 bp-[#141414] z-0 mt-5">
+  <div
+    class="flex flex-col justify-center items-center w-full max-w-md bp-[#141414] p-8 rounded-xl border-[2px] border-[#939393] shadow-md">
+    <img class="w-[90px] rounded-lg" src="assets/helper.jpg" alt="photo">
+    <h1 class="text-2xl font-bold mb-6 mt-3 text-center">Регистрация в Helper</h1>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="w-full">
+      <div class="mb-4">
+        <label for="username" class="block">
+          <span class="text-red-500">*</span>Никнейм:
+        </label>
+        <input type="text" required #username="ngModel" [(ngModel)]="registerPerson.username" name="username"
+               [ngClass]="{'is-invalid': (username.invalid && (username.dirty || username.touched)) || (submitted && username.invalid)}"
+               class="mt-1 p-2 w-full border-[#707070] border-[3px] rounded-lg bg-[#222222] hover:bg-[#272727] text-white"
+               id="username">
+
+        <div *ngIf="(username.invalid && (username.dirty || username.touched)) || (submitted && username.invalid)"
+             class="alert alert-danger mt-2 text-red-500" role="alert">
+            Поле должно быть заполнено
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="email" class="block"><span class="text-red-500">*</span>Почта:</label>
+        <input type="email" required #email="ngModel" [(ngModel)]="registerPerson.email" name="email"
+               [ngClass]="{'is-invalid': username.invalid && (username.dirty || username.touched)}"
+               class="mt-1 p-2 w-full border-[#707070] border-[3px] rounded-lg bg-[#222222] hover:bg-[#272727] text-white"
+               id="email">
+
+        <div *ngIf="(email.invalid && (email.dirty || email.touched)) || (submitted && email.invalid) || (submitted && registerPerson.email && !checkEmail())">
+          <div *ngIf="email.hasError('required')" class="alert alert-danger mt-2 text-red-500" role="alert">
+            Поле должно быть заполнено
+          </div>
+          <div *ngIf="submitted && registerPerson.email && !checkEmail()" class="alert alert-danger mt-2 text-red-500" role="alert">
+            Введите корректный email
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4 relative">
+        <label for="password" class="block">
+          <span class="text-red-500">*</span>Пароль:
+        </label>
+        <input [type]="showPassword ? 'text' : 'password'" minlength="4" required #password="ngModel"
+               [(ngModel)]="registerPerson.password"
+               name="password" [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
+               class="mt-1 p-2 w-full border-[#707070] border-[3px] rounded-lg bg-[#222222] hover:bg-[#272727] text-white"
+               id="password">
+
+        <div *ngIf="(password.invalid && (password.dirty || password.touched)) || (submitted && password.invalid)">
+          <div *ngIf="password.hasError('minlength')" class="alert alert-danger mt-2 text-red-500" role="alert">
+            Минимальная длина пароля должна быть больше 4 символов
+          </div>
+          <div *ngIf="password.hasError('required')" class="alert alert-danger mt-2 text-red-500" role="alert">
+            Поле должно быть заполнено
+          </div>
+        </div>
+        <button
+          type="button"
+          class="absolute h-6 mt-9 inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+          (click)="togglePasswordVisibility()"
+        >
+          <img *ngIf="showPassword" src="assets/eye.svg" height="24" width="24" alt="">
+          <img *ngIf="!showPassword" src="assets/eye-slash.svg" height="24" width="24" alt="">
+        </button>
+      </div>
+
+      <div class="mb-4">
+        <label for="first_name" class="block"><span class="text-red-500">*</span>Имя:</label>
+        <input type="text" required #first_name="ngModel" [(ngModel)]="registerPerson.first_name" name="first_name"
+               [ngClass]="{'is-invalid': first_name.invalid && (first_name.dirty || first_name.touched)}"
+               class="mt-1 p-2 w-full border-[#707070] border-[3px] rounded-lg bg-[#222222] hover:bg-[#272727] text-white"
+               id="first_name">
+
+        <div *ngIf="(first_name.invalid && (first_name.dirty || first_name.touched)) || (submitted && first_name.invalid)"
+             class="alert alert-danger mt-2 text-red-500" role="alert">
+            Поле должно быть заполнено
+        </div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="mb-4">
+        <label for="last_name" class="block"><span class="text-red-500">*</span>Фамилия:</label>
+        <input type="text" required #last_name="ngModel" [(ngModel)]="registerPerson.last_name" name="last_name"
+               [ngClass]="{'is-invalid': last_name.invalid && (last_name.dirty || last_name.touched)}"
+               class="mt-1 p-2 w-full border-[#707070] border-[3px] rounded-lg bg-[#222222] hover:bg-[#272727] text-white"
+               id="last_name">
+
+        <div *ngIf="(last_name.invalid && (last_name.dirty || last_name.touched)) || (submitted && last_name.invalid)"
+             class="alert alert-danger mt-2 text-red-500" role="alert">
+            Поле должно быть заполнено
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="city" class="block"><span class="text-red-500">*</span>Город:</label>
+        <input type="text" required #city="ngModel" [(ngModel)]="registerPerson.city" name="city"
+               [ngClass]="{'is-invalid': city.invalid && (city.dirty || city.touched)}"
+               class="mt-1 p-2 w-full border-[#707070] border-[3px] rounded-lg bg-[#222222] hover:bg-[#272727] text-white"
+               id="city">
+        <div *ngIf="(city.invalid && (city.dirty || city.touched)) || (submitted && city.invalid)"
+             class="alert alert-danger mt-2 text-red-500" role="alert">
+          Поле обязательно для заполнения
+        </div>
+      </div>
+
+
+      <div class="mb-6 flex flex-row justify-center gap-5">
+        <div>
+          <label class="block mb-2"><span class="text-red-500">*</span>Типы помощи:</label>
+          <div class="flex flex-col space-y-2">
+            <label *ngFor="let type of helpTypeOptions" class="inline-flex items-center">
+              <input type="checkbox"
+                     required
+                     [value]="type.value"
+                     (change)="onHelpTypeChange($event, type.value)"
+                     [checked]="registerPerson.help_types.includes(type.value)"
+                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+              <span class="ml-2">{{ type.label }}</span>
+            </label>
+          </div>
+          <div *ngIf="registerPerson.help_types.length === 0 && submitted"
+               class="alert alert-danger mt-2 text-red-500" role="alert">
+            Выберите хотя бы один вариант
+          </div>
+        </div>
+
+        <div>
+          <label class="block mb-2"><span class="text-red-500">*</span>Формат помощи:</label>
+          <div class="flex flex-col space-y-2">
+            <label *ngFor="let format of helpFormatOptions" class="inline-flex items-center">
+              <input type="checkbox"
+                     required
+                     [value]="format.value"
+                     (change)="onHelpFormatChange($event, format.value)"
+                     [checked]="registerPerson.help_formats.includes(format.value)"
+                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+              <span class="ml-2">{{ format.label }}</span>
+            </label>
+          </div>
+          <div *ngIf="registerPerson.help_types.length === 0 && submitted"
+               class="alert alert-danger mt-2 text-red-500" role="alert">
+            Выберите хотя бы один вариант
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+              [disabled]="!registerForm.valid">Register
+      </button>
+    </form>
+    <p class="mt-6">Уже есть аккаунт? <a routerLink="/login" class="text-[#3b82f6]">Войти</a></p>
+  </div>
+</div>

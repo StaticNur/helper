@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color-white: white;
+  --background-color-gray: #5c5c5c;
+  --background-color-body: #212121;
+  --background-color-green-card: #263E33;
+  --background-color-green-light: #5DFFA6;
+
+}
+
+body.dark {
+
+}
+
+body {
+  background: var(--background-color-white);
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
